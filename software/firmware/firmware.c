@@ -2,6 +2,7 @@
 #include "periphs.h"
 #include "iob-uart.h"
 #include "printf.h"
+#include "stdio.h"
 
 char *send_string = "Sending this string as a file to console.\n"
                     "The file is then requested back from console.\n"
@@ -41,6 +42,8 @@ int compare_str(char *str1, char *str2, int str_size) {
 
 int main()
 {
+  int i;
+  
   //init uart
   uart_init(UART_BASE,FREQ/BAUD);
 
@@ -49,6 +52,26 @@ int main()
 
   //test printf with floats 
   printf("Value of Pi = %f\n\n", 3.1415);
+
+
+  // initialize first and second terms
+  int a = 0;
+  int b = 1;
+
+  // initialize the next term (3rd term)
+  int next = a + b;
+
+  // print the first two terms t1 and t2
+  printf("Fibonacci Series: %d, %d, ", a, b);
+
+  // print 3rd to nth terms
+  for (i = 3; i <= 50; ++i) {
+    printf("%d\n", next);
+    a = b;
+    b = next;
+    next = a + b;
+  }
+  
 
   //test file send
   char *sendfile = malloc(1000);
