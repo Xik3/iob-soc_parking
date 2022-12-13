@@ -33,4 +33,12 @@ create_clock -period 10.000 [get_ports clk]
 set_property PACKAGE_PIN B18 [get_ports uart_rxd]
 set_property IOSTANDARD LVCMOS33 [get_ports uart_rxd]
 set_property PACKAGE_PIN A18 [get_ports uart_txd]
-set_property IOSTANDARD LVCMOS33 [get_ports uart_txd]
+set_property IOSTANDARD LVCMOS33 [get_ports uart_txd] 
+
+## LED
+set_property PACKAGE_PIN U16 [get_ports {gpio[1]}]
+  set_property IOSTANDARD LVCMOS33 [get_ports {gpio[1]}]
+## SWITCH
+set_property PACKAGE_PIN V17 [get_ports {gpio[2]}]
+  set_property IOSTANDARD LVCMOS33 [get_ports {gpio[2]}]
+
