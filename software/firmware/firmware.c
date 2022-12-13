@@ -42,36 +42,31 @@ int compare_str(char *str1, char *str2, int str_size) {
 
 int main()
 {
-  int i;
+  int sw =0;
+  int i = 0;
   
   //init uart
   uart_init(UART_BASE,FREQ/BAUD);
 
+  //init GPIO
+  gpio_init(GPIO_BASE);
+  //Enable LED[1]
+  gpio_set_output_enable(0x2);
+  //Check if SWITCH[0] is on
+  sw = gpio_get();
+  if(sw == 1)
+  {
+    //Set LED[1] on
+    gpio_set(0x2);
+  }  
+  i = gpio_get(0x2);
+  printf("Value of i = %d\n\n", i);
+  /*
   //test puts
   uart_puts("\n\n\nHello world!\n\n\n");
 
   //test printf with floats 
   printf("Value of Pi = %f\n\n", 3.1415);
-
-
-  // initialize first and second terms
-  int a = 0;
-  int b = 1;
-
-  // initialize the next term (3rd term)
-  int next = a + b;
-
-  // print the first two terms t1 and t2
-  printf("Fibonacci Series: %d, %d, ", a, b);
-
-  // print 3rd to nth terms
-  for (i = 3; i <= 50; ++i) {
-    printf("%d\n", next);
-    a = b;
-    b = next;
-    next = a + b;
-  }
-  
 
   //test file send
   char *sendfile = malloc(1000);
@@ -93,6 +88,25 @@ int main()
 
   free(sendfile);
   free(recvfile);
+  
+  // initialize first and second terms
+  int a = 0;
+  int b = 1;
+
+  // initialize the next term (3rd term)
+  int next = a + b;
+
+  // print the first two terms t1 and t2
+  printf("Fibonacci Series: %d, %d, ", a, b);
+
+  // print 3rd to nth terms
+  for (i = 3; i <= 50; ++i) {
+    printf("%d\n", next);
+    a = b;
+    b = next;
+    next = a + b;
+  
+    }*/
 
   uart_finish();
 }
