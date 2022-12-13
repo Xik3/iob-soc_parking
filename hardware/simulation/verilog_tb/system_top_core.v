@@ -89,14 +89,14 @@ module system_top
       .rst(rst)
       );   
 `endif
-  reg [32-1:0] ginput = 0;
-  assign gpio_input = ginput;
+   reg [32-1:0] ginput = 0;
+   assign gpio_input = ginput;
   
-  initial begin
+   initial begin
   
-    #45 ginput = 1;
+     #45 ginput = 1;
  
-  end
+   end
    
    //finish simulation on trap
    /* always @(posedge trap) begin
