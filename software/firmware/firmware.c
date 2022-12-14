@@ -3,6 +3,7 @@
 #include "iob-uart.h"
 #include "printf.h"
 #include "stdio.h"
+#include "iob-gpio.h"
 
 char *send_string = "Sending this string as a file to console.\n"
                     "The file is then requested back from console.\n"
