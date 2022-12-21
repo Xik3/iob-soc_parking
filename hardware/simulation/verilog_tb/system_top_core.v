@@ -92,13 +92,11 @@ module system_top
    reg [32-1:0] ginput = 0;
    
    assign gpio_input = ginput;
-   
-  
+ 
    initial begin
   
-     #45 ginput = 1;
+     #45 ginput = 3;
      
- 
    end
    
    //finish simulation on trap
