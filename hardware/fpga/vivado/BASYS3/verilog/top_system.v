@@ -10,7 +10,7 @@ module top_system(
 	          input         uart_rxd,
 	          
 	          output [1:0]	gpio_output,
-	          input			gpio_input
+	          input	 [1:0]  gpio_input
 		  );
 
    //
@@ -21,7 +21,7 @@ module top_system(
 
    wire                         sys_rst;
 
-   reg [15:0] 			rst_cnt;
+   reg [15:0] 			        qrst_cnt;
    reg                          sys_rst_int;
 
    always @(posedge clk, posedge reset)

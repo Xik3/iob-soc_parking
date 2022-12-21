@@ -89,8 +89,7 @@ module system_top
       .rst(rst)
       );   
 `endif
-   reg [32-1:0] ginput = 0;
-   
+   reg [32-1:0] ginput = 0;  
    assign gpio_input = ginput;
  
    initial begin
