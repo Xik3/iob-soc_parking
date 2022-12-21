@@ -43,6 +43,6 @@ set_property PACKAGE_PIN E19 [get_ports {gpio_output[1]}]
 ## SWITCH
 set_property PACKAGE_PIN V17 [get_ports gpio_input]
   set_property IOSTANDARD LVCMOS33 [get_ports gpio_input]
-set_property PACKAGE_PIN V16 [get_ports gpio_input2]
-  set_property IOSTANDARD LVCMOS33 [get_ports gpio_input2]
+#set_property PACKAGE_PIN V16 [get_ports gpio_input2]
+  #set_property IOSTANDARD LVCMOS33 [get_ports gpio_input2]
 

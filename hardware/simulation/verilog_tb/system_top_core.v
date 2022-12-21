@@ -90,14 +90,14 @@ module system_top
       );   
 `endif
    reg [32-1:0] ginput = 0;
-   reg [32-1:0] ginput2 = 0;
+   
    assign gpio_input = ginput;
-   assign gpio_input2 = gpinput2;
+   
   
    initial begin
   
      #45 ginput = 1;
-     #45 ginput2 = 2;
+     
  
    end
    
