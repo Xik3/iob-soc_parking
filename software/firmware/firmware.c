@@ -51,17 +51,25 @@ int main()
 
   //init GPIO
   gpio_init(GPIO_BASE);
-  //Enable LED[1]
-  gpio_set_output_enable(0x2);
-  //Check if SWITCH[0] is on
-  sw = gpio_get();
-  if(sw == 1)
+  //Enable LED[1] & LED[2]
+  gpio_set_output_enable(0x3);
+  
+  while(1)
   {
-    //Set LED[1] on
-    gpio_set(0x2);
-  }  
-  i = gpio_get(0x2);
-  printf("Value of i = %d\n\n", i);
+	  //Check if SWITCH[0] is on
+	  sw = gpio_get();
+	  if(sw == 1)
+	  {
+		//Set LED[1] & LED[2] on
+		gpio_set(0x3);
+	  }
+	  else
+	  {	//Set LED[1] & LED[2] off
+		gpio_set(0x0);
+	  }
+	  i = gpio_get();
+	  printf("Value of switch = %d\n\n", i);
+  }
   /*
   //test puts
   uart_puts("\n\n\nHello world!\n\n\n");
