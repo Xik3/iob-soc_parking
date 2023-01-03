@@ -21,7 +21,7 @@ module top_system(
 
    wire                         sys_rst;
 
-   reg [15:0] 			        qrst_cnt;
+   reg [15:0] 			        rst_cnt;
    reg                          sys_rst_int;
 
    always @(posedge clk, posedge reset)
