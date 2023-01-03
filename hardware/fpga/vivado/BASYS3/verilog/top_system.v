@@ -10,7 +10,7 @@ module top_system(
 	          input         uart_rxd,
 	          
 	          output [1:0]	gpio_output,
-	          input	 [1:0]  gpio_input
+	          input	 [2:0]  gpio_input
 		  );
 
    //

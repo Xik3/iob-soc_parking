@@ -58,11 +58,11 @@ int main()
   {
 	  //Check if SWITCH[0] or SWITCH[1] is on
 	  sw = gpio_get();
-	  if(sw == 1 || sw == 2)
-	  {
-		//Set LED[1] & LED[2] on
-		gpio_set(0x3);
-	  }
+	  if(sw == 0x5)
+	  {	
+	  	gpio_set(0x3);
+	  	
+	  }		
 	  else
 	  {	//Set LED[1] & LED[2] off
 		gpio_set(0x0);

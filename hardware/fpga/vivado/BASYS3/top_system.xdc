@@ -33,7 +33,7 @@ create_clock -period 10.000 [get_ports clk]
 set_property PACKAGE_PIN B18 [get_ports uart_rxd]
 set_property IOSTANDARD LVCMOS33 [get_ports uart_rxd]
 set_property PACKAGE_PIN A18 [get_ports uart_txd]
-set_property IOSTANDARD LVCMOS33 [get_ports uart_txd] 
+set_property IOSTANDARD LVCMOS33 [get_ports uart_txd]	
 
 ## LED
 set_property PACKAGE_PIN U16 [get_ports {gpio_output[0]}]
@@ -47,4 +47,9 @@ set_property PACKAGE_PIN V17 [get_ports {gpio_input[0]}]
 	set_property IOSTANDARD LVCMOS33 [get_ports {gpio_input[0]}]
 set_property PACKAGE_PIN V16 [get_ports {gpio_input[1]}]
 	set_property IOSTANDARD LVCMOS33 [get_ports {gpio_input[1]}]
+
+##Pmod Header JA
+##Sch name = JA1
+set_property PACKAGE_PIN J1 [get_ports {gpio_input[2]}]
+	set_property IOSTANDARD LVCMOS33 [get_ports {gpio_input[2]}]
 
