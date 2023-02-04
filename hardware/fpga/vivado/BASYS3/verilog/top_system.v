@@ -9,8 +9,11 @@ module top_system(
 	          output        uart_txd,
 	          input         uart_rxd,
 	          
-	          output [1:0]	gpio_output,
-	          input	 [2:0]  gpio_input
+	          output        [1:0] gpio_output,
+	          input	 [1:0]  gpio_input,
+
+		  input     SENSOR_IN,
+		  output    GPIO_SENSOR_OUTPUT
 		  );
 
    //
@@ -53,7 +56,10 @@ module top_system(
       
       //GPIO
       .gpio_input	 (gpio_input),
-      .gpio_output	 (gpio_output) 
+      .gpio_output	 (gpio_output),
+
+      .SENSOR_IN         (SENSOR_IN),
+      .GPIO_SENSOR_OUTPUT	  (GPIO_SENSOR_OUTPUT)
       );
 
 endmodule

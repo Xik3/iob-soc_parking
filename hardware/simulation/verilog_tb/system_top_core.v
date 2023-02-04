@@ -89,6 +89,17 @@ module system_top
       .rst(rst)
       );   
 `endif
+
+reg [32-1:0] ginput = 0;
+   assign SENSOR_IN = ginput;
+   
+   initial begin
+  
+    #45 ginput = 1;
+    #500 ginput = 0;
+    #1000 ginput = 1;
+      
+   end
  
    
    //finish simulation on trap
