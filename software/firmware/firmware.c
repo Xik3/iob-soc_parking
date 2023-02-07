@@ -4,6 +4,13 @@
 #include "printf.h"
 #include "stdio.h"
 #include "iob-gpio.h"
+#include "iob-seg.h"
+#include "iob-timer.h"
+
+#define DISPLAY_RATE 1
+#define SENSOR_RATE 11
+#define SNAKE_RATE 100
+
 
 char *send_string = "Sending this string as a file to console.\n"
                     "The file is then requested back from console.\n"
@@ -41,6 +48,243 @@ int compare_str(char *str1, char *str2, int str_size) {
     return 0;
 }
 
+
+int count_transitions(int prev, int current) {
+  int count = 0;
+  
+  if (prev == 1 && current == 0) {
+    prev = 0;
+    count = 1;
+  }
+  if (prev == 2 && current == 0){
+    prev = 0;
+    count = 2;
+  }
+
+  //timer_reset();
+  //while(timer_time_ms()<=SENSOR_RATE);
+  return count;
+}
+
+void snake_i(uint8_t cars, uint8_t sseg_ca_value)
+  {
+    int i = 0;
+    int max = 0;
+    int ano = 0;
+    uint8_t snake[14] = {119, 123, 125, 63, 137, 107, 109, 47, 79, 75, 77, 15, 11 ,13};
+    
+    switch(cars)
+      {
+      case 1:
+	i = 0;
+	max = 4;
+	ano= 14;
+	break;
+      case 2:
+	i = 5;
+	max = 8;
+	ano= 14;
+	break;
+      case 3:
+	i = 9;
+	max = 11;
+	ano= 14;
+      break;
+      case 4:
+	i = 12;
+	max = 13;
+	ano= 14;
+      break;
+      case 7:
+	i = 0;
+	max = 4;
+	ano= 13;
+	break;
+      case 8:
+	i = 5;
+	max = 8;
+	ano= 13;
+	break;
+      case 9:
+	i = 9;
+	max = 11;
+	ano= 13;
+      break;
+      case 10:
+	i = 12;
+	max = 13;
+	ano= 13;
+      break;
+      default:
+      }
+    
+    for(i; i<=max; i++){
+
+      sseg_ca_value = snake[i];
+      seg_data_cat(sseg_ca_value);
+      seg_data_ano(ano);
+      timer_reset();
+      while(timer_time_ms()<=SNAKE_RATE);
+    }
+
+  }
+
+void display(uint8_t cars, uint8_t sseg_ca_value)
+{
+	uint8_t floor[4] = {48,79,18,56};
+	uint8_t parking[7] = {127, 111, 79, 15, 13, 9, 1};
+	if(cars == 0)
+	  {
+	    sseg_ca_value = parking[cars];
+	    seg_data_cat(sseg_ca_value);
+	    seg_data_ano(14);
+	    timer_reset();
+	    while(timer_time_ms()<=DISPLAY_RATE);
+
+	    sseg_ca_value = floor[0];
+	    seg_data_cat(sseg_ca_value);
+	    seg_data_ano(7);
+	    timer_reset();
+	    while(timer_time_ms()<=DISPLAY_RATE);
+	
+	    sseg_ca_value = parking[cars];
+	    seg_data_cat(sseg_ca_value);
+	    seg_data_ano(13);
+	    timer_reset();
+	    while(timer_time_ms()<=DISPLAY_RATE);
+	
+	  }
+	else if(cars <= 6 && cars > 0)
+	  {
+
+	    sseg_ca_value = parking[cars];
+	    seg_data_cat(sseg_ca_value);
+	    seg_data_ano(14);
+	    timer_reset();
+	    while(timer_time_ms()<=DISPLAY_RATE);
+
+	    sseg_ca_value = floor[1];
+	    seg_data_cat(sseg_ca_value);
+	    seg_data_ano(7);
+	    timer_reset();
+	    while(timer_time_ms()<=DISPLAY_RATE);
+	
+	    sseg_ca_value = parking[0];
+	    seg_data_cat(sseg_ca_value);
+	    seg_data_ano(13);
+	    timer_reset();
+	    while(timer_time_ms()<=DISPLAY_RATE);
+	  }
+
+	else if (cars > 6 && cars < 12)
+	  {
+	    sseg_ca_value = parking[6];
+	    seg_data_cat(sseg_ca_value);
+	    seg_data_ano(14);
+	    timer_reset();
+	    while(timer_time_ms()<=DISPLAY_RATE);
+	
+	    sseg_ca_value = floor[2];
+	    seg_data_cat(sseg_ca_value);
+	    seg_data_ano(7);
+	    timer_reset();
+	    while(timer_time_ms()<=DISPLAY_RATE);
+	
+	    sseg_ca_value = parking[cars - 6];
+	    seg_data_cat(sseg_ca_value);
+	    seg_data_ano(13);
+	    timer_reset();
+	    while(timer_time_ms()<=DISPLAY_RATE);
+	  }
+	
+	else if(cars == 12)
+	  {
+   
+	    sseg_ca_value = parking[6];
+	    seg_data_cat(sseg_ca_value);
+	    seg_data_ano(14);
+	    timer_reset();
+	    while(timer_time_ms()<=DISPLAY_RATE);
+
+	    sseg_ca_value = floor[3];
+	    seg_data_cat(sseg_ca_value);
+	    seg_data_ano(7);
+	    timer_reset();
+	    while(timer_time_ms()<=DISPLAY_RATE);
+	
+	    sseg_ca_value = parking[6];
+	    seg_data_cat(sseg_ca_value);
+	    seg_data_ano(13);
+	    timer_reset();
+	    while(timer_time_ms()<=DISPLAY_RATE);
+
+	  }
+    
+}
+
+void snake_o(uint8_t cars, uint8_t sseg_ca_value)
+  {
+    int i = 0;
+    int max = 0;
+    int ano = 0;
+    uint8_t snake_o[10] = {47, 109, 107, 77, 73, 11, 95, 63, 125, 123};
+
+    switch(cars)
+      {
+      case 0:
+	i = 6;
+	max = 9;
+	ano= 14;
+	break;
+      case 1:
+	i = 0;
+	max = 2;
+	ano= 14;
+	break;
+      case 2:
+	i = 3;
+	max = 4;
+	ano= 14;
+	break;
+      case 3:
+	i = 5;
+	max = 5;
+	ano= 14;
+      break;
+      case 6:
+	i = 6;
+	max = 9;
+	ano= 13;
+	break;
+      case 7:
+	i = 0;
+	max = 2;
+	ano= 13;
+	break;
+      case 8:
+	i = 3;
+	max = 4;
+	ano= 13;
+	break;
+      case 9:
+	i = 5;
+	max = 5;
+	ano= 13;
+      default:
+      }
+    
+    for(i; i<=max; i++){
+
+      sseg_ca_value = snake_o[i];
+      seg_data_cat(sseg_ca_value);
+      seg_data_ano(ano);
+      timer_reset();
+      while(timer_time_ms()<=SNAKE_RATE);
+    }
+    
+
+    }
+
 int main()
 {
   int sw =0;
@@ -51,72 +295,99 @@ int main()
 
   //init GPIO
   gpio_init(GPIO_BASE);
-  //Enable LED[1] & LED[2]
+
+  //init SEG
+  seg_init(SEG_BASE);
+
   gpio_set_output_enable(0x3);
 
+  timer_init(TIMER_BASE);
+
+  uint8_t sseg_ca_value;
+  uint8_t flag = 0;
+  uint8_t cars = 0;
+  int prev, prev_o, prev_i,current,count;
   while(1)
-  {
-	  //Check if SWITCH[0] or SWITCH[1] is on
-	  //sw = gpio_get();
-	  //if(sw == 0x3)
-	  //{	
-    //gpio_set(0x3);
-	  	
-    //}		
-    //else
-    //{	//Set LED[1] & LED[2] off
-    //gpio_set(0x0);
-    //}
-	  i = gpio_sensor_get();
-	  printf("Value of switch = %d\n\n", i);
-  }
-  
-  /*
-  //test puts
-  uart_puts("\n\n\nHello world!\n\n\n");
+    {
+      if(gpio_get())
+	{
+	  printf("Value = %d\n\n",gpio_sensor_get());
 
-  //test printf with floats 
-  printf("Value of Pi = %f\n\n", 3.1415);
+	  while(gpio_sensor_i_get())
+	    {
+	      flag = 1;
+	      display(cars, sseg_ca_value);
+	    }
 
-  //test file send
-  char *sendfile = malloc(1000);
-  int send_file_size = 0;
-  send_file_size = string_copy(sendfile, send_string);
-  uart_sendfile("Sendfile.txt", send_file_size, sendfile);
+	  while(gpio_sensor_o_get())
+	    {
+	      flag = 2;
+	      display(cars, sseg_ca_value);
+	    }
 
-  //test file receive
-  char *recvfile = malloc(10000);
-  int file_size = 0;
-  file_size = uart_recvfile("Sendfile.txt", recvfile);
+	  switch(flag)
+	    {
+	    case 1:
+	      if(cars < 12)
+		{
+		  cars += 1;
+		  flag = 0;
+		  snake_i(cars, sseg_ca_value);
+		}
+	      break;
+	    case 2:
+	      if(cars > 0)
+		{
+		  cars -= 1;
+		  flag = 0;
+		  snake_o(cars, sseg_ca_value);
+		}
+	      break;
+	    default:
+	    }
 
-  //compare files
-  if (compare_str(sendfile, recvfile, send_file_size)) {
-      printf("FAILURE: Send and received file differ!\n");
-  } else {
-      printf("SUCCESS: Send and received file match!\n");
-  }
+	  display(cars, sseg_ca_value);
+	}
 
-  free(sendfile);
-  free(recvfile);
-  
-  // initialize first and second terms
-  int a = 0;
-  int b = 1;
 
-  // initialize the next term (3rd term)
-  int next = a + b;
 
-  // print the first two terms t1 and t2
-  printf("Fibonacci Series: %d, %d, ", a, b);
+      
+      //printf("Value of cars = %d\n\n",cars); 
+      /*
+      if(gpio_sensor_get())
+	{
+	  prev = gpio_sensor_get();
+	  timer_reset();
+	  while(timer_time_ms()<=SENSOR_RATE);
+	  current = gpio_sensor_get();
+	  count = count_transitions(prev, current);
+       
+	  switch(count)
+	    {
+	    case 1:
+	      if(cars < 12)
+		{
+		  cars += 1;
+		  snake_i(cars, sseg_ca_value);
+		}
+	      break;
+	    case 2:
+	      if(cars > 0)
+		{
+		  cars -= 1;
+		  //snake_o(cars, sseg_ca_value);
+		}
+	      break;
+	    default:
+	    }
 
-  // print 3rd to nth terms
-  for (i = 3; i <= 50; ++i) {
-    printf("%d\n", next);
-    a = b;
-    b = next;
-    next = a + b;
-  
-    }*/
+	  printf("Value of cars = %d\n\n",cars);
+	
+	}
 
+	display(cars, sseg_ca_value);*/
+	
+    }  
+    
   uart_finish();
 }

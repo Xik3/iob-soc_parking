@@ -95,10 +95,9 @@ reg [32-1:0] ginput = 0;
    
    initial begin
   
-    #45 ginput = 1;
-    #500 ginput = 0;
-    #1000 ginput = 1;
-      
+    #2000 ginput  = 1;
+    #2010 ginput = 0;
+    #2020 ginput = 1;
    end
  
    

@@ -2,18 +2,22 @@
 `include "system.vh"
 
 module top_system(
-	          input         clk,
-	          input         reset,
+	          input        clk,
+	          input        reset,
 
 	          //uart
-	          output        uart_txd,
-	          input         uart_rxd,
+	          output       uart_txd,
+	          input        uart_rxd,
 	          
-	          output        [1:0] gpio_output,
-	          input	 [1:0]  gpio_input,
+	          output [1:0] gpio_output,
+	          input [1:0]  gpio_input,
 
-		  input     SENSOR_IN,
-		  output    GPIO_SENSOR_OUTPUT
+		  input [1:0]  SENSOR_IN,
+		  output       GPIO_SENSOR_OUTPUT_I,
+		  output       GPIO_SENSOR_OUTPUT_O,
+
+		  output [6:0] seg_cat,
+		  output [3:0] seg_anode
 		  );
 
    //
@@ -59,7 +63,12 @@ module top_system(
       .gpio_output	 (gpio_output),
 
       .SENSOR_IN         (SENSOR_IN),
-      .GPIO_SENSOR_OUTPUT	  (GPIO_SENSOR_OUTPUT)
+      .GPIO_SENSOR_OUTPUT_I	  (GPIO_SENSOR_OUTPUT_I),
+      .GPIO_SENSOR_OUTPUT_O       (GPIO_SENSOR_OUTPUT_O),
+
+      //SEG
+      .seg_cat (seg_cat),
+      .seg_anode (seg_anode)
       );
 
 endmodule
